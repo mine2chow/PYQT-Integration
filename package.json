@@ -1,0 +1,119 @@
+{
+    "name": "pyqt-integration",
+    "displayName": "PYQT Integration",
+    "description": "PYQT integration",
+    "license": "MIT",
+    "version": "0.0.1",
+    "publisher": "zhoufeng",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mine2chow/PYQT-Integration.git"
+    },
+    "icon": "imgs/pyqt-integration-icon.png",
+    "homepage": "https://github.com/mine2chow/PYQT-Integration/blob/master/README.md",
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "pyqt-integration.createNewForm",
+                "title": "PYQT: New Form"
+            },
+            {
+                "command": "pyqt-integration.editInDesigner",
+                "title": "PYQT: Edit In Designer"
+            },
+            {
+                "command": "pyqt-integration.Preview",
+                "title": "PYQT: Preview"
+            },
+            {
+                "command": "pyqt-integration.compileForm",
+                "title": "PYQT: Compile Form"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "pyqt-integration.createNewForm",
+                    "when": "filesExplorerFocus == true",
+                    "group": "pyqt-integration@1"
+                },
+                {
+                    "command": "pyqt-integration.Preview",
+                    "when": "resourceScheme == file && resourceExtname == .ui",
+                    "group": "pyqt-integration@2"
+                },
+                {
+                    "command": "pyqt-integration.editInDesigner",
+                    "when": "resourceScheme == file && resourceExtname == .ui",
+                    "group": "pyqt-integration@3"
+                },
+                {
+                    "command": "pyqt-integration.compileForm",
+                    "when": "resourceScheme == file && resourceExtname == .ui",
+                    "group": "pyqt-integration@4"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "pyqt-integration.editInDesigner",
+                    "when": "false"
+                },
+                {
+                    "command": "pyqt-integration.Preview",
+                    "when": "false"
+                },
+                {
+                    "command": "pyqt-integration.compileForm",
+                    "when": "false"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "PYQT integration configuration",
+            "properties": {
+                "pyqt-integration.qtdesigner.path": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path of QT designer",
+                    "scope": "window"
+                },
+                "pyqt-integration.pyuic.cmd": {
+                    "type": "string",
+                    "default": "pyuic5",
+                    "description": "'pyuic' command file, you can also specify a path",
+                    "scope": "window"
+                },
+                "pyqt-integration.pyuic.compile.filepath": {
+                    "type": "string",
+                    "default": "Ui_${ui_name}.py",
+                    "description": "Target '.py' file path for compiling, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\UI\\\\Ui_${ui_name}.py",
+                    "scope": "window"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "tslint": "^5.8.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
