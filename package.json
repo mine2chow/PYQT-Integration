@@ -3,7 +3,7 @@
     "displayName": "PYQT Integration",
     "description": "PYQT integration",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "zhoufeng",
     "engines": {
         "vscode": "^1.22.0"
@@ -14,6 +14,10 @@
     },
     "icon": "imgs/pyqt-integration-icon.png",
     "homepage": "https://github.com/mine2chow/PYQT-Integration/blob/master/README.md",
+    "keywords": [
+        "pyqt",
+        "qt"
+    ],
     "categories": [
         "Other"
     ],
@@ -103,7 +107,7 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
