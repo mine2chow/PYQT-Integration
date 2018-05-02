@@ -3,7 +3,7 @@
     "displayName": "PYQT Integration",
     "description": "PYQT integration",
     "license": "MIT",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "zhoufeng",
     "engines": {
         "vscode": "^1.22.0"
@@ -146,7 +146,8 @@
             {
                 "id": "xml",
                 "extensions": [
-                    ".ui", ".qrc"
+                    ".ui",
+                    ".qrc"
                 ]
             }
         ]
