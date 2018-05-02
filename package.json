@@ -139,18 +139,12 @@
         "languages": [
             {
                 "id": "css",
-                "aliases": [
-                    "CSS"
-                ],
                 "extensions": [
                     ".qss"
                 ]
             },
             {
                 "id": "xml",
-                "aliases": [
-                    "XML"
-                ],
                 "extensions": [
                     ".ui", ".qrc"
                 ]
