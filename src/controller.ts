@@ -101,6 +101,32 @@ export class PYQTController{
         this.exec(`${pyuic} -p ${fileUri.fsPath}`);
     }
 
+
+    private resolvePath(fileUri: vscode.Uri, pyPath:string) : string {
+        // path resolved
+        let pyPathR = pyPath.replace("${ui_name}", "${name}").replace("${qrc_name}", "${name}");
+
+
+        if(pyPathR.indexOf("${workspace}") !== -1){
+            // Absolute path
+            const workspaceFoldersList = vscode.workspace.workspaceFolders;
+            let workspacePath = "";
+            if(workspaceFoldersList && workspaceFoldersList.length !== 0){
+                workspacePath = workspaceFoldersList[0].uri.fsPath;
+            }
+
+            let fileNameNoSuffix = fileUri.fsPath.replace(/(.*[\\\/])(.*)\..*$/, "$2");
+
+            pyPathR = pyPathR.replace("${workspace}", workspacePath).replace("${name}", fileNameNoSuffix);
+
+        } else {
+            let pattern = "$1" + pyPathR.replace("${name}", "$2");
+            pyPathR = fileUri.fsPath.replace(/(.*[\\\/])(.*)\..*$/, pattern);
+        }
+
+        return pyPathR;
+    }
+
     /**
      * compileForm
      */
@@ -109,26 +135,31 @@ export class PYQTController{
         const pyPath = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.compile.filepath', "");
 
         // path resolved
-        let pyPathR = pyPath;
-
-        if(pyPath.indexOf("${workspace}") !== -1){
-            // Absolute path
-            const workspaceFoldersList = vscode.workspace.workspaceFolders;
-            let workspacePath = "";
-            if(workspaceFoldersList && workspaceFoldersList.length !== 0){
-                workspacePath = workspaceFoldersList[0].uri.fsPath;
-            }
-
-            let fileNameNoSuffix = fileUri.fsPath.replace(/(.*[\\\/])(.*?)\.ui$/, "$2");
-
-            pyPathR = pyPath.replace("${workspace}", workspacePath).replace("${ui_name}", fileNameNoSuffix);
-
-        } else {
-            let pattern = "$1" + pyPath.replace("${ui_name}", "$2");
-            pyPathR = fileUri.fsPath.replace(/(.*[\\\/])(.*?)\.ui$/, pattern);
-        }
+        let pyPathR = this.resolvePath(fileUri, pyPath);
 
         this.initFolder(pyPathR);
         this.exec(`${pyuic} ${fileUri.fsPath} -o ${pyPathR}`, `Compiled to ${pyPathR} successfully`);
+    }
+
+    /**
+     * compileQRC
+     */
+    public async compileQRC(fileUri: vscode.Uri) {
+        const pyrcc = vscode.workspace.getConfiguration().get('pyqt-integration.pyrcc.cmd', "");
+        const pyPath = vscode.workspace.getConfiguration().get('pyqt-integration.pyrcc.compile.filepath', "");
+        const addOpts = vscode.workspace.getConfiguration().get('pyqt-integration.pyrcc.compile.addOptions', "");
+
+        // path resolved
+        let pyPathR = this.resolvePath(fileUri, pyPath);
+
+        this.initFolder(pyPathR);
+        this.exec(`${pyrcc} ${fileUri.fsPath} ${addOpts} -o ${pyPathR}`, `Compiled to ${pyPathR} successfully`);
+    }
+
+    /**
+     * generateQRC
+     * TODO
+     */
+    public generateQRC() {
     }
 }

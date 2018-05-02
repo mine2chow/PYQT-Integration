@@ -30,6 +30,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('pyqt-integration.compileForm', 
         (fileUri: vscode.Uri) => controller.compileForm(fileUri))
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand('pyqt-integration.compileQRC', 
+        (fileUri: vscode.Uri) => controller.compileQRC(fileUri))
+    );
 }
 
 // this method is called when your extension is deactivated
