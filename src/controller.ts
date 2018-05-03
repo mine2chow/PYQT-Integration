@@ -40,10 +40,10 @@ export class PYQTController{
         }, initDir);
     }
 
-    private exec(cmd: string, successMessage="", stdoutPath: string = ""){
+    private exec(cmd: string, {successMessage="", stdoutPath="", cwd=""} = {}){
         //this._outputChannel.show(true);
         this._outputChannel.appendLine(`[Running] ${cmd}`);
-        this.cp.exec(cmd, (err:any, stdout:any, stderr:any) => {
+        this.cp.exec(cmd,  {cwd: cwd}, (err:any, stdout:any, stderr:any) => {
             if(stdout && stdoutPath){
                 this.initFolder(stdoutPath);
                 this.fs.writeFileSync(stdoutPath, stdout, 'utf8');
@@ -81,7 +81,8 @@ export class PYQTController{
     public async createNewForm(fileUri: vscode.Uri) {
         const dPath =  await this.getOrConfigDesignerPath();
         if(dPath !== ""){
-            this.exec(`"${dPath}"`);
+            const dirName = this.path.dirname(fileUri.fsPath);
+            this.exec(`"${dPath}"`, {cwd:dirName});
         }
     }
 
@@ -91,7 +92,8 @@ export class PYQTController{
     public async editInDesigner(fileUri: vscode.Uri) {
         const dPath =  await this.getOrConfigDesignerPath();
         if(dPath !== ""){
-            this.exec(`"${dPath}" "${fileUri.fsPath}"`);
+            const dirName = this.path.dirname(fileUri.fsPath);
+            this.exec(`"${dPath}" "${fileUri.fsPath}"`, {cwd:dirName});
         }
 
     }
@@ -101,7 +103,8 @@ export class PYQTController{
      */
     public async preview(fileUri: vscode.Uri) {
         const pyuic = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.cmd', "");
-        this.exec(`"${pyuic}" -p "${fileUri.fsPath}"`);
+        const dirName = this.path.dirname(fileUri.fsPath);
+        this.exec(`"${pyuic}" -p "${fileUri.fsPath}"`, {cwd:dirName});
     }
 
 
@@ -146,7 +149,11 @@ export class PYQTController{
         let pyPathR = this.resolvePath(fileUri, pyPath);
 
         this.initFolder(pyPathR);
-        this.exec(`"${pyuic}" "${fileUri.fsPath}" -o "${pyPathR}"`, `Compiled to "${pyPathR}" successfully`);
+        const dirName = this.path.dirname(fileUri.fsPath);
+        this.exec(`"${pyuic}" "${fileUri.fsPath}" -o "${pyPathR}"`, {
+            successMessage:`Compiled to "${pyPathR}" successfully`,
+            cwd:dirName
+        });
     }
 
     /**
@@ -161,7 +168,11 @@ export class PYQTController{
         let pyPathR = this.resolvePath(fileUri, pyPath);
 
         this.initFolder(pyPathR);
-        this.exec(`"${pyrcc}" "${fileUri.fsPath}" ${addOpts} -o "${pyPathR}"`, `Compiled to "${pyPathR}" successfully`);
+        const dirName = this.path.dirname(fileUri.fsPath);
+        this.exec(`"${pyrcc}" "${fileUri.fsPath}" ${addOpts} -o "${pyPathR}"`, {
+            successMessage:`Compiled to "${pyPathR}" successfully`,
+            cwd:dirName
+        });
     }
 
     /**

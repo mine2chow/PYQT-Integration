@@ -124,8 +124,8 @@
                 },
                 "pyqt-integration.pyrcc.compile.filepath": {
                     "type": "string",
-                    "default": "Qrc_${qrc_name}.py",
-                    "description": "Target '.py' file path for compiling, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\QRC\\\\Qrc_${qrc_name}.py",
+                    "default": "${qrc_name}_rc.py",
+                    "description": "Target '.py' file path for compiling, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\QRC\\\\${qrc_name}_rc.py",
                     "scope": "window"
                 },
                 "pyqt-integration.pyrcc.compile.addOptions": {
