@@ -24,7 +24,7 @@ An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`" file
 |2|`pyqt-integration.pyuic.cmd`|"pyuic" command, default "`pyuic5`"|
 |3|`pyqt-integration.pyuic.compile.filepath`|Compile file path, relative path as default, switch to absolute path by involving ${workspace}, e.g. \${workspace}\\\\UI\\\\Ui_\${ui_name}.py|
 |4|`pyqt-integration.pyrcc.cmd`|"pyrcc" command, default "`pyrcc5`"|
-|5|`pyqt-integration.pyrcc.compile.filepath`|Compile file path, relative path as default, switch to absolute path by involving ${workspace}, e.g. \${workspace}\\\\QRC\\\\Qrc_\${qrc_name}.py|
+|5|`pyqt-integration.pyrcc.compile.filepath`|Compile file path, relative path as default, switch to absolute path by involving ${workspace}, e.g. \${workspace}\\\\QRC\\\\\${qrc_name}_rc.py|
 |6|`pyqt-integration.pyrcc.compile.addOptions`|Additional options for pyrcc compiling, it can be a combination of '-root', '-threshold', '-compress', '-no-compress', etc.|
 
 ```text
