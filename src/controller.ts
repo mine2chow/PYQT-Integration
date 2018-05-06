@@ -81,8 +81,22 @@ export class PYQTController{
     public async createNewForm(fileUri: vscode.Uri) {
         const dPath =  await this.getOrConfigDesignerPath();
         if(dPath !== ""){
-            const dirName = this.path.dirname(fileUri.fsPath);
-            this.exec(`"${dPath}"`, {cwd:dirName});
+            if(!fileUri){
+                var workspaceFolders = vscode.workspace.workspaceFolders;
+                if(workspaceFolders){
+                    fileUri = workspaceFolders[0].uri;
+                }
+            }
+            this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+                if(err){
+                    return vscode.window.showErrorMessage(err);
+                }
+                let dirName = fileUri.fsPath;
+                if(stats.isFile()){
+                    dirName = this.path.dirname(fileUri.fsPath);
+                }
+                this.exec(`"${dPath}"`, {cwd:dirName});
+            });
         }
     }
 
@@ -92,8 +106,16 @@ export class PYQTController{
     public async editInDesigner(fileUri: vscode.Uri) {
         const dPath =  await this.getOrConfigDesignerPath();
         if(dPath !== ""){
-            const dirName = this.path.dirname(fileUri.fsPath);
-            this.exec(`"${dPath}" "${fileUri.fsPath}"`, {cwd:dirName});
+            this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+                if(err){
+                    return vscode.window.showErrorMessage(err);
+                }
+                let dirName = fileUri.fsPath;
+                if(stats.isFile()){
+                    dirName = this.path.dirname(fileUri.fsPath);
+                }
+                this.exec(`"${dPath}" "${fileUri.fsPath}"`, {cwd:dirName});
+            });
         }
 
     }
@@ -103,8 +125,16 @@ export class PYQTController{
      */
     public async preview(fileUri: vscode.Uri) {
         const pyuic = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.cmd', "");
-        const dirName = this.path.dirname(fileUri.fsPath);
-        this.exec(`"${pyuic}" -p "${fileUri.fsPath}"`, {cwd:dirName});
+        this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+            if(err){
+                return vscode.window.showErrorMessage(err);
+            }
+            let dirName = fileUri.fsPath;
+            if(stats.isFile()){
+                dirName = this.path.dirname(fileUri.fsPath);
+            }
+            this.exec(`"${pyuic}" -p "${fileUri.fsPath}"`, {cwd:dirName});
+        });
     }
 
 
@@ -149,10 +179,18 @@ export class PYQTController{
         let pyPathR = this.resolvePath(fileUri, pyPath);
 
         this.initFolder(pyPathR);
-        const dirName = this.path.dirname(fileUri.fsPath);
-        this.exec(`"${pyuic}" "${fileUri.fsPath}" -o "${pyPathR}"`, {
-            successMessage:`Compiled to "${pyPathR}" successfully`,
-            cwd:dirName
+        this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+            if(err){
+                return vscode.window.showErrorMessage(err);
+            }
+            let dirName = fileUri.fsPath;
+            if(stats.isFile()){
+                dirName = this.path.dirname(fileUri.fsPath);
+            }
+            this.exec(`"${pyuic}" "${fileUri.fsPath}" -o "${pyPathR}"`, {
+                successMessage:`Compiled to "${pyPathR}" successfully`,
+                cwd:dirName
+            });
         });
     }
 
@@ -168,10 +206,18 @@ export class PYQTController{
         let pyPathR = this.resolvePath(fileUri, pyPath);
 
         this.initFolder(pyPathR);
-        const dirName = this.path.dirname(fileUri.fsPath);
-        this.exec(`"${pyrcc}" "${fileUri.fsPath}" ${addOpts} -o "${pyPathR}"`, {
-            successMessage:`Compiled to "${pyPathR}" successfully`,
-            cwd:dirName
+        this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+            if(err){
+                return vscode.window.showErrorMessage(err);
+            }
+            let dirName = fileUri.fsPath;
+            if(stats.isFile()){
+                dirName = this.path.dirname(fileUri.fsPath);
+            }
+            this.exec(`"${pyrcc}" "${fileUri.fsPath}" ${addOpts} -o "${pyPathR}"`, {
+                successMessage:`Compiled to "${pyPathR}" successfully`,
+                cwd:dirName
+            });
         });
     }
 
