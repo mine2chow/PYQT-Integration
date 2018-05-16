@@ -220,11 +220,4 @@ export class PYQTController{
             });
         });
     }
-
-    /**
-     * generateQRC
-     * TODO
-     */
-    public generateQRC() {
-    }
 }
