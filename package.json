@@ -122,6 +122,12 @@
                     "description": "Target '.py' file path for compiling, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\UI\\\\Ui_${ui_name}.py",
                     "scope": "window"
                 },
+                "pyqt-integration.pyuic.compile.addOptions": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options for pyuic compiling, it can be a combination of '-x', '-d', '-i', etc.",
+                    "scope": "window"
+                },
                 "pyqt-integration.pyrcc.compile.filepath": {
                     "type": "string",
                     "default": "${qrc_name}_rc.py",

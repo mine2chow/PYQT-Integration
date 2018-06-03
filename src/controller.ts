@@ -48,6 +48,14 @@ export class PYQTController{
                 this.initFolder(stdoutPath);
                 this.fs.writeFileSync(stdoutPath, stdout, 'utf8');
             }
+            if(!err){
+                if(stdout){
+                    this._outputChannel.appendLine(`${stdout.toString()}`);
+                }
+                if(stderr){
+                    this._outputChannel.appendLine(`${stderr.toString()}`);
+                }
+            }
             if (err) {
                 this._outputChannel.appendLine(`[Error] ${stderr.toString()}`);
                 vscode.window.showErrorMessage(err.toString());
@@ -174,6 +182,7 @@ export class PYQTController{
     public async compileForm(fileUri: vscode.Uri) {
         const pyuic = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.cmd', "");
         const pyPath = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.compile.filepath', "");
+        const addOpts = vscode.workspace.getConfiguration().get('pyqt-integration.pyuic.compile.addOptions', "");
 
         // path resolved
         let pyPathR = this.resolvePath(fileUri, pyPath);
@@ -187,7 +196,7 @@ export class PYQTController{
             if(stats.isFile()){
                 dirName = this.path.dirname(fileUri.fsPath);
             }
-            this.exec(`"${pyuic}" "${fileUri.fsPath}" -o "${pyPathR}"`, {
+            this.exec(`"${pyuic}" "${fileUri.fsPath}" ${addOpts} -o "${pyPathR}"`, {
                 successMessage:`Compiled to "${pyPathR}" successfully`,
                 cwd:dirName
             });

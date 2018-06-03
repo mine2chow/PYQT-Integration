@@ -1,5 +1,6 @@
 # Change Log
 
+- 0.1.5 Add Property "`pyqt-integration.pyuic.compile.addOptions`"
 - 0.1.4 Bug fix for default save path
 - 0.1.3
   - Default location for saving a new form will be inherited
