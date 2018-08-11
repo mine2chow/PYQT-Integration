@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration) [![Extension Installs](https://vsmarketplacebadge.apphb.com/installs/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration) [![Extension Rating](https://vsmarketplacebadge.apphb.com/rating/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration)
 
-An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`" files.
+An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`", "`.pro`" files.
 
 ![preview](./imgs/preview.png)
 
@@ -15,6 +15,7 @@ An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`" file
 |3|PYQT: Preview|Preview current ui form|
 |4|PYQT: Compile Form|Compile ui form to path defined in "`pyqt-integration.pyuic.compile.filepath`"|
 |5|PYQT: Compile Resource|Compile qrc file to path defined in "`pyqt-integration.pyrcc.compile.filepath`"|
+|6|PYQT: Generate Translation File|Compile UI file (.py) to translation file with path defined in "`pyqt-integration.pylupdate.compile.filepath`" <br/> Compile .pro file|
 
 ## Properties
 
@@ -27,7 +28,10 @@ An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`" file
 |5|`pyqt-integration.pyrcc.cmd`|"pyrcc" command, default "`pyrcc5`"|
 |6|`pyqt-integration.pyrcc.compile.filepath`|Compile file path, relative path as default, switch to absolute path by involving ${workspace}, e.g. \${workspace}\\\\QRC\\\\\${qrc_name}_rc.py|
 |7|`pyqt-integration.pyrcc.compile.addOptions`|Additional options for pyrcc compiling, it can be a combination of '-root', '-threshold', '-compress', '-no-compress', etc.|
+|8|`pyqt-integration.pylupdate.cmd`|"pylupdate" command, default "`pylupdate5`"|
+|9|`pyqt-integration.pylupdate.compile.filepath`|Only works when compiling an UI file (.py), Stores the target '.ts' file's path, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\TS\\\\\${ts_name}.ts|
+|10|`pyqt-integration.pylupdate.compile.addOptions`|Additional options for pylupdate, it can be a combination of '-verbose', '-noobsolete', '-tr-function', '-translate-function', etc.|
 
 ```text
-Compilation will overwite the target py file without confirmation!
+Compilation will overwite the target file without confirmation!
 ```

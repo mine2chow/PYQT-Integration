@@ -46,6 +46,10 @@
             {
                 "command": "pyqt-integration.compileQRC",
                 "title": "PYQT: Compile Resource"
+            },
+            {
+                "command": "pyqt-integration.pylupdate",
+                "title": "PYQT: Generate Translation File"
             }
         ],
         "menus": {
@@ -73,7 +77,17 @@
                 {
                     "command": "pyqt-integration.compileQRC",
                     "when": "resourceScheme == file && resourceExtname == .qrc",
-                    "group": "pyqt-integration@4"
+                    "group": "pyqt-integration@5"
+                },
+                {
+                    "command": "pyqt-integration.pylupdate",
+                    "when": "resourceScheme == file && resourceExtname == .py",
+                    "group": "pyqt-integration@6"
+                },
+                {
+                    "command": "pyqt-integration.pylupdate",
+                    "when": "resourceScheme == file && resourceExtname == .pro",
+                    "group": "pyqt-integration@6"
                 }
             ],
             "commandPalette": [
@@ -91,6 +105,10 @@
                 },
                 {
                     "command": "pyqt-integration.compileQRC",
+                    "when": "false"
+                },
+                {
+                    "command": "pyqt-integration.pylupdate",
                     "when": "false"
                 }
             ]
@@ -116,6 +134,12 @@
                     "description": "'pyrcc' command file, you can also specify a path",
                     "scope": "window"
                 },
+                "pyqt-integration.pylupdate.cmd": {
+                    "type": "string",
+                    "default": "pylupdate5",
+                    "description": "'pylupdate' command file, you can also specify a path",
+                    "scope": "window"
+                },
                 "pyqt-integration.pyuic.compile.filepath": {
                     "type": "string",
                     "default": "Ui_${ui_name}.py",
@@ -138,6 +162,18 @@
                     "type": "string",
                     "default": "",
                     "description": "Additional options for pyrcc compiling, it can be a combination of '-root', '-threshold', '-compress', '-no-compress', etc.",
+                    "scope": "window"
+                },
+                "pyqt-integration.pylupdate.compile.filepath": {
+                    "type": "string",
+                    "default": "${ts_name}.ts",
+                    "description": "Only works when compiling an UI file (.py), Stands for the target '.ts' file's path, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\TS\\\\${ts_name}.ts",
+                    "scope": "window"
+                },
+                "pyqt-integration.pylupdate.compile.addOptions": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional options for pylupdate, it can be a combination of '-verbose', '-noobsolete', '-tr-function', '-translate-function', etc.",
                     "scope": "window"
                 }
             }

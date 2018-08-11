@@ -148,7 +148,9 @@ export class PYQTController{
 
     private resolvePath(fileUri: vscode.Uri, pyPath:string) : string {
         // path resolved
-        let pyPathR = pyPath.replace("${ui_name}", "${name}").replace("${qrc_name}", "${name}");
+        let pyPathR = pyPath.replace("${ui_name}", "${name}")
+                            .replace("${qrc_name}", "${name}")
+                            .replace("${ts_name}", "${name}");
         
 
         if(pyPathR.indexOf("${workspace}") !== -1){
@@ -227,6 +229,41 @@ export class PYQTController{
                 successMessage:`Compiled to "${pyPathR}" successfully`,
                 cwd:dirName
             });
+        });
+    }
+
+    /**
+     * pylupdate
+     */
+    public async pylupdate(fileUri: vscode.Uri) {
+        const pylupdate = vscode.workspace.getConfiguration().get('pyqt-integration.pylupdate.cmd', "");
+        const tsPath = vscode.workspace.getConfiguration().get('pyqt-integration.pylupdate.compile.filepath', "");
+        const addOpts = vscode.workspace.getConfiguration().get('pyqt-integration.pylupdate.compile.addOptions', "");
+
+        // path resolved
+        let tsPathR = this.resolvePath(fileUri, tsPath);
+
+        this.initFolder(tsPathR);
+        this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+            if(err){
+                return vscode.window.showErrorMessage(err);
+            }
+            let dirName = fileUri.fsPath;
+            if(stats.isFile()){
+                dirName = this.path.dirname(fileUri.fsPath);
+            }
+
+            if(fileUri.fsPath.endsWith(".pro") && stats.isFile()){
+                this.exec(`"${pylupdate}" ${addOpts} "${fileUri.fsPath}"`, {
+                    successMessage:`Compiled "${fileUri.fsPath}" successfully`,
+                    cwd:dirName
+                });
+            } else if(fileUri.fsPath.endsWith(".py") && stats.isFile()){
+                this.exec(`"${pylupdate}" ${addOpts} "${fileUri.fsPath}" -ts "${tsPathR}"`, {
+                    successMessage:`Compiled to "${tsPathR}" successfully`,
+                    cwd:dirName
+                });
+            }
         });
     }
 }
