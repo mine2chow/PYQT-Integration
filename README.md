@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration) [![Extension Installs](https://vsmarketplacebadge.apphb.com/installs/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration) [![Extension Rating](https://vsmarketplacebadge.apphb.com/rating/zhoufeng.pyqt-integration.svg)](https://marketplace.visualstudio.com/items?itemName=zhoufeng.pyqt-integration)
 
-An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`", "`.pro`" files.
+An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`", "`.pro`", "`.ts`" files.
 
 ![preview](./imgs/preview.png)
 
