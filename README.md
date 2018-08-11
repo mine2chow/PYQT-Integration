@@ -15,7 +15,8 @@ An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`", "`.
 |3|PYQT: Preview|Preview current ui form|
 |4|PYQT: Compile Form|Compile ui form to path defined in "`pyqt-integration.pyuic.compile.filepath`"|
 |5|PYQT: Compile Resource|Compile qrc file to path defined in "`pyqt-integration.pyrcc.compile.filepath`"|
-|6|PYQT: Generate Translation File|Compile UI file (.py) to translation file with path defined in "`pyqt-integration.pylupdate.compile.filepath`" <br/> Compile .pro file|
+|6|PYQT: Generate Translation File (.ts)|Compile UI file (.py) to translation file with path defined in "`pyqt-integration.pylupdate.compile.filepath`" <br/> Compile .pro file|
+|7|PYQT: Open With Qt Linguist|Open with Qt Linguist for translation file (.ts)|
 
 ## Properties
 
@@ -31,6 +32,7 @@ An extension help you coding PYQT form in vsocde. Support "`.ui`", "`.qrc`", "`.
 |8|`pyqt-integration.pylupdate.cmd`|"pylupdate" command, default "`pylupdate5`"|
 |9|`pyqt-integration.pylupdate.compile.filepath`|Only works when compiling an UI file (.py), Stores the target '.ts' file's path, relative path as default, switch to absolute path by involving ${workspace}, e.g. ${workspace}\\\\TS\\\\\${ts_name}.ts|
 |10|`pyqt-integration.pylupdate.compile.addOptions`|Additional options for pylupdate, it can be a combination of '-verbose', '-noobsolete', '-tr-function', '-translate-function', etc.|
+|11|`pyqt-integration.linguist.cmd`|"linguist" command, default "`linguist`"|
 
 ```text
 Compilation will overwite the target file without confirmation!

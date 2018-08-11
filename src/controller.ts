@@ -266,4 +266,23 @@ export class PYQTController{
             }
         });
     }
+
+    /**
+     * linguist
+     */
+    public async linguist(fileUri: vscode.Uri) {
+        const linguist = vscode.workspace.getConfiguration().get('pyqt-integration.linguist.cmd', "linguist");
+
+        this.fs.lstat(fileUri.fsPath, (err:any, stats:any) => {
+            if(err){
+                return vscode.window.showErrorMessage(err);
+            }
+            let dirName = fileUri.fsPath;
+            if(stats.isFile()){
+                dirName = this.path.dirname(fileUri.fsPath);
+            }
+
+            this.exec(`"${linguist}" "${fileUri.fsPath}"`, {cwd:dirName});
+        });
+    }
 }

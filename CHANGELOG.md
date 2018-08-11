@@ -1,6 +1,8 @@
 # Change Log
 
-- 0.1.6 Add menu "`PYQT: Generate Translation File`"
+- 0.1.6
+  - Add menu "`PYQT: Generate Translation File (.ts)`"
+  - Add menu "`PYQT: Open With Qt Linguist`"
 - 0.1.5 Add Property "`pyqt-integration.pyuic.compile.addOptions`"
 - 0.1.4 Bug fix for default save path
 - 0.1.3

@@ -38,6 +38,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('pyqt-integration.pylupdate', 
         (fileUri: vscode.Uri) => controller.pylupdate(fileUri))
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand('pyqt-integration.linguist', 
+        (fileUri: vscode.Uri) => controller.linguist(fileUri))
+    );
 }
 
 // this method is called when your extension is deactivated

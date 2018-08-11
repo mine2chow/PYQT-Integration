@@ -49,7 +49,11 @@
             },
             {
                 "command": "pyqt-integration.pylupdate",
-                "title": "PYQT: Generate Translation File"
+                "title": "PYQT: Generate Translation File (.ts)"
+            },
+            {
+                "command": "pyqt-integration.linguist",
+                "title": "PYQT: Open With Qt Linguist"
             }
         ],
         "menus": {
@@ -88,6 +92,11 @@
                     "command": "pyqt-integration.pylupdate",
                     "when": "resourceScheme == file && resourceExtname == .pro",
                     "group": "pyqt-integration@6"
+                },
+                {
+                    "command": "pyqt-integration.linguist",
+                    "when": "resourceScheme == file && resourceExtname == .ts",
+                    "group": "pyqt-integration@7"
                 }
             ],
             "commandPalette": [
@@ -109,6 +118,10 @@
                 },
                 {
                     "command": "pyqt-integration.pylupdate",
+                    "when": "false"
+                },
+                {
+                    "command": "pyqt-integration.linguist",
                     "when": "false"
                 }
             ]
@@ -138,6 +151,12 @@
                     "type": "string",
                     "default": "pylupdate5",
                     "description": "'pylupdate' command file, you can also specify a path",
+                    "scope": "window"
+                },
+                "pyqt-integration.linguist.cmd": {
+                    "type": "string",
+                    "default": "linguist",
+                    "description": "'linguist' command file, you can also specify a path",
                     "scope": "window"
                 },
                 "pyqt-integration.pyuic.compile.filepath": {
