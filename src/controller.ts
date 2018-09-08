@@ -80,6 +80,19 @@ export class PYQTController{
                 }
             });
         }
+
+        if(dPath.indexOf("${workspace}") !== -1){
+            // Absolute path
+            const workspaceFoldersList = vscode.workspace.workspaceFolders;
+            let workspacePath = "";
+            if(workspaceFoldersList && workspaceFoldersList.length !== 0){
+                workspacePath = workspaceFoldersList[0].uri.fsPath;
+            }
+
+            dPath = dPath.replace("${workspace}", workspacePath);
+
+        }
+
         return dPath;
     }
 

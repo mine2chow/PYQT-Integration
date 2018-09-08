@@ -1,5 +1,6 @@
 # Change Log
 
+- 0.2.1 Support ${workspace} for qt designer path
 - 0.2.0
   - Add menu "`PYQT: Generate Translation File (.ts)`"
   - Add menu "`PYQT: Open With Qt Linguist`"
